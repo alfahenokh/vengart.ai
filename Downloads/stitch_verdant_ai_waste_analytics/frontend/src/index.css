@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Obsidian Moss Global Styles */
+@layer base {
+  * {
+    @apply border-outline-variant;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-sans;
+    @apply min-h-screen;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-container-low;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-outline rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-outline-variant;
+  }
+}
+
+@layer components {
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-primary text-primary-on px-6 py-3 rounded-lg font-medium;
+    @apply hover:bg-primary-container hover:text-primary-on-container;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .btn-secondary {
+    @apply border border-outline text-on-surface px-6 py-3 rounded-lg font-medium;
+    @apply hover:bg-surface-container hover:border-outline-variant;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-outline focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply bg-surface-container border border-outline-variant rounded-lg p-6;
+    @apply transition-all duration-200;
+  }
+
+  .card-elevated {
+    @apply card shadow-ambient;
+  }
+
+  .card-interactive {
+    @apply card hover:bg-surface-container-high hover:border-outline;
+    @apply cursor-pointer;
+  }
+
+  /* Input Styles */
+  .input-field {
+    @apply bg-surface-container-low text-on-surface px-4 py-3 rounded-lg;
+    @apply border border-transparent;
+    @apply focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20;
+    @apply transition-all duration-200;
+    @apply placeholder:text-on-surface-variant;
+  }
+
+  /* Badge/Chip Styles */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-label-sm;
+    @apply bg-primary/15 text-primary;
+  }
+
+  .badge-secondary {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-label-sm;
+    @apply bg-secondary/15 text-secondary;
+  }
+
+  .badge-error {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-label-sm;
+    @apply bg-error/15 text-error;
+  }
+
+  /* Glass Morphism */
+  .glass {
+    @apply backdrop-blur-glass bg-surface-container/40;
+    @apply border border-outline-variant/50;
+  }
+
+  /* List Styles */
+  .list-item {
+    @apply py-4 border-b border-outline-variant/50 last:border-b-0;
+  }
+
+  /* Status Indicators */
+  .status-active {
+    @apply w-2 h-2 rounded-full bg-primary animate-pulse;
+  }
+
+  .status-idle {
+    @apply w-2 h-2 rounded-full bg-secondary;
+  }
+
+  .status-error {
+    @apply w-2 h-2 rounded-full bg-error animate-pulse;
+  }
+}
+
+@layer utilities {
+  /* Quiet Luxury spacing utilities */
+  .section-spacing {
+    @apply py-16 md:py-24;
+  }
+
+  .container-padding {
+    @apply px-margin-mobile md:px-margin-desktop;
+  }
+
+  /* Text utilities */
+  .text-muted {
+    @apply text-on-surface-variant;
+  }
+
+  .text-mono {
+    @apply font-mono text-mono-label;
+  }
+
+  /* Responsive container */
+  .responsive-container {
+    @apply max-w-container mx-auto container-padding;
+  }
+}
