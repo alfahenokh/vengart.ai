@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verdant AI | Master Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-overlay {
+            backdrop-filter: blur(12px);
+            background-color: rgba(16, 20, 22, 0.4);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #101416;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #444842;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#c5c7c8",
+                      "secondary-container": "#444748",
+                      "inverse-on-surface": "#2d3133",
+                      "on-primary-fixed": "#121f11",
+                      "surface-tint": "#bbcbb6",
+                      "surface": "#101416",
+                      "primary-fixed": "#d7e7d2",
+                      "on-secondary": "#2e3132",
+                      "surface-variant": "#313537",
+                      "on-secondary-fixed-variant": "#444748",
+                      "on-tertiary-fixed-variant": "#454748",
+                      "on-error": "#690005",
+                      "tertiary-fixed": "#e2e2e3",
+                      "on-primary-fixed-variant": "#3c4a3b",
+                      "tertiary": "#c6c6c7",
+                      "primary-container": "#6b7a68",
+                      "on-surface-variant": "#c4c8c0",
+                      "on-primary": "#263425",
+                      "inverse-surface": "#dfe3e5",
+                      "error": "#ffb4ab",
+                      "primary": "#bbcbb6",
+                      "on-background": "#dfe3e5",
+                      "surface-container-high": "#262b2c",
+                      "on-primary-container": "#ffffff",
+                      "on-secondary-container": "#b3b5b6",
+                      "tertiary-container": "#757677",
+                      "on-tertiary-container": "#ffffff",
+                      "surface-container-lowest": "#0a0f10",
+                      "on-tertiary": "#2f3132",
+                      "on-surface": "#dfe3e5",
+                      "surface-container-low": "#181c1e",
+                      "on-error-container": "#ffdad6",
+                      "surface-bright": "#353a3c",
+                      "secondary-fixed-dim": "#c5c7c8",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface-container-highest": "#313537",
+                      "outline": "#8e928b",
+                      "on-tertiary-fixed": "#1a1c1d",
+                      "inverse-primary": "#546251",
+                      "secondary-fixed": "#e1e3e4",
+                      "background": "#101416",
+                      "primary-fixed-dim": "#bbcbb6",
+                      "outline-variant": "#444842",
+                      "error-container": "#93000a",
+                      "surface-dim": "#101416",
+                      "on-secondary-fixed": "#191c1d",
+                      "surface-container": "#1c2022"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "container-max-width": "1440px",
+                      "margin-desktop": "48px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "title-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "mono-label": ["JetBrains Mono"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                      "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-6 max-w-container-max-width mx-auto">
+<div class="flex items-center gap-12">
+<h1 class="font-headline-lg text-headline-lg font-semibold tracking-tight text-on-surface dark:text-on-surface">Verdant AI</h1>
+<nav class="hidden md:flex items-center gap-8"><a class="font-title-md text-title-md text-primary dark:text-primary border-b-2 border-primary dark:border-primary pb-1 transition-all duration-300" href="{{DATA:SCREEN:SCREEN_32}}">Dashboard</a><a class="font-title-md text-title-md text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-all duration-300" href="{{DATA:SCREEN:SCREEN_26}}">Simulator</a><a class="font-title-md text-title-md text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-all duration-300" href="{{DATA:SCREEN:SCREEN_10}}">Resources</a><a class="font-title-md text-title-md text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-all duration-300" href="{{DATA:SCREEN:SCREEN_12}}">Analytics</a></nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="active:opacity-80 transition-opacity text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="active:opacity-80 transition-opacity text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="active:opacity-80 transition-opacity text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-desktop py-12 flex flex-col gap-12">
+<!-- Header Hero Section -->
+<div class="flex flex-col gap-2">
+<span class="font-mono-label text-mono-label text-primary uppercase tracking-widest">Global Operations Command</span>
+<h2 class="font-display-lg text-display-lg text-on-surface">Master Control Dashboard</h2>
+</div>
+<!-- Upper Bento Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Spatial-Temporal Matrix Map -->
+<div class="col-span-12 lg:col-span-8 h-[540px] relative rounded-xl border border-outline-variant bg-surface-container-low overflow-hidden group">
+<div class="absolute inset-0 bg-[#0d0e0e]">
+<!-- Map Placeholder with data-location -->
+<img alt="Matrix Map" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A sophisticated dark-mode digital map interface showcasing a vast urban landscape illuminated by glowing emerald green pulses and thin architectural lines. The visualization uses a muted monochromatic gray palette for the base map with high-contrast moss green highlights indicating active data flow pathways. Atmospheric particles and subtle grid overlays emphasize a high-tech, spatial-temporal intelligence environment. The lighting is low and focused, evoking a quiet, professional command center aesthetic." data-location="Tokyo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCufwy2diWaZSc1Uxcf1Cw-g3lWwqs4OFExhB06zCWeRr32EvpgxutWpblTljZM1nIjn46uzoFYh9vpaBTvrkg9GTY_8jgppUJCKpH4CPuLZXallWeFIjlep-xVZk2iB-d4PO1XQQeVPy8rauuX81aH4ovk7h312eZvgt0zkEvxSZToXXg-LTUtGroqQWLvxh_qz62hzhYb23_W86GZukOLk7gGw7agt36LDx3Z_4cQWpmh3MnIv8oFB671ouTHEzB8DPICq8qdNyE"/>
+</div>
+<!-- Map UI Overlays -->
+<div class="absolute top-6 left-6 p-4 rounded-lg bg-surface/60 backdrop-blur-md border border-outline-variant flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-primary">LIVE MATRIX VIEW</span>
+<span class="font-mono-label text-mono-label text-on-surface">Sector 7G-12 // Operational</span>
+</div>
+<div class="absolute bottom-6 right-6 flex gap-4">
+<div class="px-4 py-2 rounded-lg bg-surface/60 backdrop-blur-md border border-outline-variant flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-label-sm text-label-sm">SYNCING TEMPORAL DATA</span>
+</div>
+</div>
+</div>
+<!-- Status Widgets Stack -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Network Throughput -->
+<div class="flex-1 p-6 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Network Throughput</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">42.8 GB/s</span>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+</div>
+<div class="h-12 flex items-end gap-1 overflow-hidden">
+<!-- Bar chart visualization -->
+<div class="flex-1 bg-surface-variant h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-surface-variant h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-surface-variant h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-[85%] rounded-t-sm"></div>
+<div class="flex-1 bg-surface-variant h-[70%] rounded-t-sm"></div>
+<div class="flex-1 bg-surface-variant h-[50%] rounded-t-sm"></div>
+<div class="flex-1 bg-surface-variant h-[65%] rounded-t-sm"></div>
+</div>
+</div>
+<!-- Active Threads -->
+<div class="flex-1 p-6 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Active Threads</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">1,024</span>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono-label text-mono-label text-primary">+12.4%</span>
+<span class="font-mono-label text-mono-label text-on-surface-variant">vs last hour</span>
+</div>
+</div>
+<!-- Operational Efficiency -->
+<div class="flex-1 p-6 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Efficiency Rate</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">99.4%</span>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="speed">speed</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[99.4%] transition-all duration-1000"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Lower Section: Performance & Distribution -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Temporal Node Performance Table -->
+<div class="col-span-12 lg:col-span-8 p-8 rounded-xl border border-outline-variant bg-surface-container-low">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-title-md text-title-md">Temporal Node Performance</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+<span class="font-label-sm text-label-sm">EXPORT LOGS</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+</button>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="pb-4 font-label-sm text-label-sm text-secondary uppercase">Node ID</th>
+<th class="pb-4 font-label-sm text-label-sm text-secondary uppercase">Latency</th>
+<th class="pb-4 font-label-sm text-label-sm text-secondary uppercase">Uptime</th>
+<th class="pb-4 font-label-sm text-label-sm text-secondary uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="border-b border-surface-variant/30 hover:bg-surface-variant/10 transition-colors">
+<td class="py-4 font-mono-label text-on-surface">VAI-OSLO-01</td>
+<td class="py-4 text-on-surface-variant">12ms</td>
+<td class="py-4 text-on-surface-variant">99.99%</td>
+<td class="py-4">
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider">Stable</span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant/30 hover:bg-surface-variant/10 transition-colors">
+<td class="py-4 font-mono-label text-on-surface">VAI-TK-04</td>
+<td class="py-4 text-on-surface-variant">45ms</td>
+<td class="py-4 text-on-surface-variant">98.24%</td>
+<td class="py-4">
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider">Stable</span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant/30 hover:bg-surface-variant/10 transition-colors">
+<td class="py-4 font-mono-label text-on-surface">VAI-NYC-09</td>
+<td class="py-4 text-on-surface-variant">8ms</td>
+<td class="py-4 text-on-surface-variant">100.00%</td>
+<td class="py-4">
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider">Peak</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="py-4 font-mono-label text-on-surface">VAI-LDN-12</td>
+<td class="py-4 text-on-surface-variant">22ms</td>
+<td class="py-4 text-on-surface-variant">99.50%</td>
+<td class="py-4">
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider">Stable</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Material Distribution -->
+<div class="col-span-12 lg:col-span-4 p-8 rounded-xl border border-outline-variant bg-surface-container-low flex flex-col gap-8">
+<h3 class="font-title-md text-title-md">Material Distribution</h3>
+<div class="flex flex-col gap-6">
+<!-- Bio-Matter -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bio-Matter Optimization</span>
+<span class="font-mono-label text-mono-label text-primary">85%</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+<!-- Rare Isotopes -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Rare Isotope Recovery</span>
+<span class="font-mono-label text-mono-label text-primary">42%</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full">
+<div class="bg-primary h-full w-[42%]"></div>
+</div>
+</div>
+<!-- Carbon Sequestration -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Carbon Sequestration</span>
+<span class="font-mono-label text-mono-label text-primary">91%</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full">
+<div class="bg-primary h-full w-[91%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Distribution is currently aligned with the 2024 Spatial Sustainability Protocol. All sectors report positive yield.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-low border-t border-outline-variant dark:border-outline-variant full-width bottom-0">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-12 max-w-container-max-width mx-auto gap-gutter">
+<div class="flex flex-col gap-2">
+<span class="font-title-md text-title-md text-on-surface-variant">Verdant AI</span>
+<p class="font-label-sm text-label-sm text-secondary dark:text-secondary">© 2024 Verdant AI. Spatial-Temporal Waste Management Intelligence.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">System Status</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">API Documentation</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Subtle atmospheric interactivity
+        document.addEventListener('mousemove', (e) => {
+            const containers = document.querySelectorAll('.bg-surface-container-low');
+            containers.forEach(container => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (x > 0 && y > 0 && x < rect.width && y < rect.height) {
+                    container.style.boxShadow = `0px 4px 24px rgba(187, 203, 182, 0.05)`;
+                } else {
+                    container.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verdant AI - Resource Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c5c7c8",
+                        "secondary-container": "#444748",
+                        "inverse-on-surface": "#2d3133",
+                        "on-primary-fixed": "#121f11",
+                        "surface-tint": "#bbcbb6",
+                        "surface": "#101416",
+                        "primary-fixed": "#d7e7d2",
+                        "on-secondary": "#2e3132",
+                        "surface-variant": "#313537",
+                        "on-secondary-fixed-variant": "#444748",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#e2e2e3",
+                        "on-primary-fixed-variant": "#3c4a3b",
+                        "tertiary": "#c6c6c7",
+                        "primary-container": "#6b7a68",
+                        "on-surface-variant": "#c4c8c0",
+                        "on-primary": "#263425",
+                        "inverse-surface": "#dfe3e5",
+                        "error": "#ffb4ab",
+                        "primary": "#bbcbb6",
+                        "on-background": "#dfe3e5",
+                        "surface-container-high": "#262b2c",
+                        "on-primary-container": "#ffffff",
+                        "on-secondary-container": "#b3b5b6",
+                        "tertiary-container": "#757677",
+                        "on-tertiary-container": "#ffffff",
+                        "surface-container-lowest": "#0a0f10",
+                        "on-tertiary": "#2f3132",
+                        "on-surface": "#dfe3e5",
+                        "surface-container-low": "#181c1e",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#353a3c",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface-container-highest": "#313537",
+                        "outline": "#8e928b",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "inverse-primary": "#546251",
+                        "secondary-fixed": "#e1e3e4",
+                        "background": "#101416",
+                        "primary-fixed-dim": "#bbcbb6",
+                        "outline-variant": "#444842",
+                        "error-container": "#93000a",
+                        "surface-dim": "#101416",
+                        "on-secondary-fixed": "#191c1d",
+                        "surface-container": "#1c2022"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "container-max-width": "1440px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "mono-label": ["JetBrains Mono"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                        "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #101416;
+            color: #dfe3e5;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(22, 24, 25, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2A2D2E;
+        }
+        .tonal-tier-1 {
+            background-color: #161819;
+            border: 1px solid #2A2D2E;
+        }
+        .moss-glow {
+            box-shadow: 0 0 15px rgba(187, 203, 182, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101416;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #313537;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444842;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar Implementation -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant fixed top-0 left-0 right-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-6 max-w-container-max-width mx-auto">
+<div class="flex items-center gap-12">
+<span class="font-headline-lg text-headline-lg font-semibold tracking-tight text-on-surface dark:text-on-surface">Verdant AI</span>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-all duration-300" href="{{DATA:SCREEN:SCREEN_32}}">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-all duration-300" href="{{DATA:SCREEN:SCREEN_26}}">Simulator</a>
+<a class="text-primary dark:text-primary border-b-2 border-primary dark:border-primary pb-1 font-medium" href="{{DATA:SCREEN:SCREEN_10}}">Resources</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-all duration-300" href="{{DATA:SCREEN:SCREEN_12}}">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">settings</button>
+<div class="flex items-center gap-3 active:opacity-80 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="text-on-surface font-medium hidden sm:block">Admin.Spatial</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-24 px-margin-desktop max-w-container-max-width mx-auto w-full">
+<!-- Dashboard Hero Header -->
+<div class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Resource Management</h1>
+<p class="text-secondary font-body-lg max-w-2xl">Orchestrating autonomous waste recovery fleets and personnel logistics across spatial-temporal nodes.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high border border-outline-variant px-6 py-2 rounded text-on-surface hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span>Optimize Routes</span>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded font-semibold hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Dispatch Unit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Fleet Status Table (Unit Identifier, Status, Capacity, Location) -->
+<section class="col-span-12 lg:col-span-8 tonal-tier-1 rounded-xl overflow-hidden flex flex-col h-[520px]">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Active Fleet Status</h3>
+<div class="flex items-center gap-4 text-label-sm text-secondary">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> 42 Operational</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> 3 Maintenance</span>
+</div>
+</div>
+<div class="overflow-y-auto flex-grow">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low z-10">
+<tr class="text-label-sm font-label-sm text-secondary uppercase tracking-widest border-b border-outline-variant">
+<th class="px-6 py-4">Unit Identifier</th>
+<th class="px-6 py-4">Current Status</th>
+<th class="px-6 py-4">Capacity</th>
+<th class="px-6 py-4">Location</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-mono-label text-mono-label text-primary">UX-9012A</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase">In Transit</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[78%]"></div>
+</div>
+<span class="text-[10px] text-secondary mt-1 block">78% Full</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Zone 4 (North Sector)</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-mono-label text-mono-label text-primary">VX-8831B</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase">Loading</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+<span class="text-[10px] text-secondary mt-1 block">92% Full</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Central Station B</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-mono-label text-mono-label text-error">MX-1044C</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-error/10 text-error text-[10px] font-bold uppercase">Alert</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[15%]"></div>
+</div>
+<span class="text-[10px] text-secondary mt-1 block">15% Full</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Service Bay 2</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-mono-label text-mono-label text-primary">NX-7721D</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-secondary-container text-secondary text-[10px] font-bold uppercase">Idle</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[0%]"></div>
+</div>
+<span class="text-[10px] text-secondary mt-1 block">0% Full</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Depot West</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-mono-label text-mono-label text-primary">RX-3341E</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase">In Transit</span>
+</td>
+<td class="px-6 py-4">
+<div class="w-24 bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[45%]"></div>
+</div>
+<span class="text-[10px] text-secondary mt-1 block">45% Full</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Zone 12 (South-West)</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Personnel Roster -->
+<section class="col-span-12 lg:col-span-4 tonal-tier-1 rounded-xl p-6 flex flex-col h-[520px]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-md text-title-md text-on-surface">Personnel Roster</h3>
+<button class="text-primary hover:underline font-label-sm uppercase">View All</button>
+</div>
+<div class="space-y-4 overflow-y-auto pr-2">
+<!-- Personnel Item -->
+<div class="flex items-center gap-4 p-3 rounded-lg border border-outline-variant/50 hover:border-primary/50 transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="Elena Chen" class="w-full h-full object-cover" data-alt="A professional headshot of a female technologist with a confident expression, wearing minimalist futuristic work attire. The background is a clean, dark industrial setting with subtle moss-green accents. Soft directional lighting highlights her features, creating a sophisticated and capable mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYLPTT-EcM4vPU2qLZl6b8Y56xlI9VZBmRGT8ghYtgX9X-xdb98Ucf37vanPcLuUjca8_65-FJLNvDRufw4POF6T8ikxQDuI5FOmKoBOoZxwEe9nlYDuaxZmxnvS6uTboUTYCYGfTs918pUZkWZcHjgDUOpdj7DNjAQCPIqyGryHHlMpatV7Xj4qnqFPwIrS1gxtS_OMIaYtBSTL3Hu92my19zMu8IVhayKP4veiVfN4KQxQjmGTuRAQYe1M6SZoksmjOc39Xc04A"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-medium text-on-surface">Elena Chen</h4>
+<p class="text-label-sm text-secondary uppercase tracking-tight">Fleet Supervisor</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<!-- Personnel Item -->
+<div class="flex items-center gap-4 p-3 rounded-lg border border-outline-variant/50 hover:border-primary/50 transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="Marcus Thorne" class="w-full h-full object-cover" data-alt="A professional headshot of a male technician in a high-tech environment. He has a focused and serious expression, wearing a dark grey utility garment. The lighting is low-key with subtle green glows in the background, maintaining a quiet luxury and technical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJp1gH6c5vYwmVAuYUUIeT2ot7usC832KD_AjgU7_eHaO5VBtDEkpZA6fB-TK6g4t0VdWPRzajpnSdeD6HgMqn6-BUSwtsPwP3CqdgwI2GzGwYtbCMSSu9ZPGczRQKm7zH1RY8eW_sQ3nbNxluQxvuDUzagKeWZ9LdZOK1LKzp53MpJP5MXl835aT9JfwrgpPRHkLIt39OpeJDpAit06d1rJ5QvAV4-FTNnpkOKJDvVobK_h9phbEPWUH5jeROXcTqMB4PfRU0ZDM"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-medium text-on-surface">Marcus Thorne</h4>
+<p class="text-label-sm text-secondary uppercase tracking-tight">Lead Engineer</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<!-- Personnel Item -->
+<div class="flex items-center gap-4 p-3 rounded-lg border border-outline-variant/50 hover:border-primary/50 transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="Sarah J." class="w-full h-full object-cover" data-alt="A professional headshot of a female logistics coordinator. She is looking at the camera with a calm, professional demeanor. The style is minimalist with a monochromatic color palette of deep blacks and moss greens, reflecting a high-end corporate AI dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUxoyY5uLos2R-TU4-PooI-ezSFkVBiUC2fywEutXcqCTwCjI40krhb7ltUCRZ1GRMNmY5PXNpR_XebumV47Vg4VzuuQ-G7GKsUDjVeBBjsCP5ek7rwwFPFUUJ0ajYrhMTIq9wmVNmdB_dr3lLTOFyP6RLml-0c-JKnTXMv_5meC1HMFlmcqPvRq0BQcpcj8h-7FGw9yYIqOvlsy8yBLWszICLYTQtoi0PQfMqvjOXe_WFtbOWqnwuC8qXmxtYyNuqZaGG8SZQg64"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-medium text-on-surface">Sarah Jenkins</h4>
+<p class="text-label-sm text-secondary uppercase tracking-tight">Shift Lead</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+</div>
+<!-- Personnel Item -->
+<div class="flex items-center gap-4 p-3 rounded-lg border border-outline-variant/50 hover:border-primary/50 transition-colors">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="David Miller" class="w-full h-full object-cover" data-alt="A professional portrait of a senior logistics manager. His expression is experienced and steady. He is set against a dark, minimalist technical background with faint green data visualizations. The lighting is soft and focused, conveying professional confidence and quiet luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpqoH8wxxMSCYmVu_Hb4d0Rn3XeIjOXUfYlL5Qz9z9rJOAXQwR4HrlmfqU6MR8l4LplFQUPM9INqjMuNpMXtEYzaYwg-zreoHUM8B99Oz3OXeITiKMBbLSSEhqHjL_vEj5mreRyGc21GbUTlsUT-cqVFr1IT246IUwLZpz6LldHxv9Yy6jP5gjVe0z2u9fOTiN2b2fKEP-CfE0n8rRBGG2os-NOIrL1UkxjQGXGBImwxgVNVmGXLBvTvFru2AtY4cGR0hIempBvRY"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-medium text-on-surface">David Miller</h4>
+<p class="text-label-sm text-secondary uppercase tracking-tight">Zone Analyst</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+</div>
+</section>
+<!-- Shift Schedule -->
+<section class="col-span-12 tonal-tier-1 rounded-xl p-6">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Operations Schedule</h3>
+<p class="text-secondary font-label-sm">Shift Rotation: 24h Operational Cycle</p>
+</div>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-variant"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-variant"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-gutter">
+<!-- Schedule Card -->
+<div class="bg-surface-container p-4 rounded-lg border border-outline-variant/30 flex flex-col gap-4">
+<span class="text-label-sm text-primary uppercase font-bold">Shift A</span>
+<div class="space-y-1">
+<p class="text-on-surface font-medium">06:00 - 14:00</p>
+<p class="text-secondary text-[11px]">8 Personnel • 12 Active Units</p>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-secondary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-outline-variant border border-surface flex items-center justify-center text-[8px] text-white">+5</div>
+</div>
+</div>
+<!-- Schedule Card -->
+<div class="bg-surface-container p-4 rounded-lg border border-outline-variant/30 flex flex-col gap-4 border-l-4 border-l-primary">
+<span class="text-label-sm text-primary uppercase font-bold">Shift B (Active)</span>
+<div class="space-y-1">
+<p class="text-on-surface font-medium">14:00 - 22:00</p>
+<p class="text-secondary text-[11px]">10 Personnel • 18 Active Units</p>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-secondary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-outline-variant border border-surface flex items-center justify-center text-[8px] text-white">+7</div>
+</div>
+</div>
+<!-- Schedule Card -->
+<div class="bg-surface-container p-4 rounded-lg border border-outline-variant/30 flex flex-col gap-4">
+<span class="text-label-sm text-primary uppercase font-bold">Shift C</span>
+<div class="space-y-1">
+<p class="text-on-surface font-medium">22:00 - 06:00</p>
+<p class="text-secondary text-[11px]">4 Personnel • 8 Active Units</p>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-secondary-container border border-surface"></div>
+<div class="w-6 h-6 rounded-full bg-outline-variant border border-surface flex items-center justify-center text-[8px] text-white">+1</div>
+</div>
+</div>
+<!-- Empty/Draft Slot -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-dashed border-outline-variant flex flex-col items-center justify-center text-secondary hover:text-primary hover:border-primary transition-all cursor-pointer group">
+<span class="material-symbols-outlined mb-2 group-hover:scale-110 transition-transform">add_circle</span>
+<span class="text-label-sm uppercase font-bold">Draft Shift</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-dashed border-outline-variant flex flex-col items-center justify-center text-secondary opacity-40">
+<span class="material-symbols-outlined mb-2">lock</span>
+<span class="text-label-sm uppercase font-bold">Projected</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-dashed border-outline-variant flex flex-col items-center justify-center text-secondary opacity-40">
+<span class="material-symbols-outlined mb-2">lock</span>
+<span class="text-label-sm uppercase font-bold">Projected</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Implementation -->
+<footer class="bg-surface-container-low dark:bg-surface-container-low border-t border-outline-variant dark:border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-12 max-w-container-max-width mx-auto gap-gutter">
+<div class="flex flex-col gap-2">
+<span class="font-title-md text-title-md text-on-surface-variant">Verdant AI</span>
+<p class="font-label-sm text-label-sm text-secondary dark:text-secondary">© 2024 Verdant AI. Spatial-Temporal Waste Management Intelligence.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">System Status</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">API Documentation</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface dark:hover:text-on-surface underline transition-all cursor-pointer" href="#">Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple interactive effect for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.toggle('bg-primary/5');
+            });
+        });
+
+        // Atmosphere: Subtle parallax movement for any glass panels
+        document.addEventListener('mousemove', (e) => {
+            const panels = document.querySelectorAll('.glass-panel');
+            const x = (e.clientX - window.innerWidth / 2) / 100;
+            const y = (e.clientY - window.innerHeight / 2) / 100;
+            
+            panels.forEach(panel => {
+                panel.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body></html>
